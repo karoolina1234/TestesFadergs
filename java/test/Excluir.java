@@ -7,10 +7,14 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pages.Cadastro;
 import pages.Inicio;
@@ -49,9 +53,23 @@ public class Excluir {
 
 	@Test
 	public void testeDeletar() {
-		WebElement edit = driver.findElement(By.xpath("//a[contains(text(),'Home')]"));
-		assertEquals("Home", edit);
-		//deletar.deletarPrimeiroCadastro();
+		
+		//espera
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//b[contains(text(),'EDIT')]")));
+		
+		//localizar
+		Actions action = new Actions(driver);
+		WebElement btn = driver.findElement(By.xpath("//div[@id='1592339739072-0-uiGrid-000B-cell']//i[contains(@class,'fa fa-trash-o')]"));
+		action.contextClick(btn).perform();
+		
+		//Clicar
+		WebElement btnDell = driver.findElement(By.xpath("//div[@id='1592339739072-0-uiGrid-000B-cell']//button[@class='btn btn-danger btn-xs'][contains(text(),'Delete')]"));
+		btnDell.click();
+		
+		Alert alerta = driver.switchTo().alert();
+		alerta.accept();
+		
 		
 	}
 	
